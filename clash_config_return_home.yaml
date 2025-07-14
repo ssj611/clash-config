@@ -1,0 +1,26 @@
+
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: "🇨🇳 回国节点-示例"
+    type: ss
+    server: 1.2.3.4
+    port: 443
+    cipher: aes-256-gcm
+    password: example-password
+
+proxy-groups:
+  - name: "自动选择"
+    type: select
+    proxies:
+      - 🇨🇳 回国节点-示例
+
+rules:
+  - DOMAIN-SUFFIX,ccopyright.com.cn,🇨🇳 回国节点-示例
+  - GEOIP,CN,🇨🇳 回国节点-示例
+  - MATCH,自动选择
